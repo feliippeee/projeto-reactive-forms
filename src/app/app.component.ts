@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CountriesService } from './services/countries.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'projeto-reactive-forms';
+  constructor(
+    private readonly _countriesService: CountriesService
+  ) {}
+
+  ngOnInit() {
+    return this._countriesService.getCountries().subscribe((countriesResponse: any) => {
+      console.log('countriesResponse', countriesResponse);
+    });
+  }
 }
