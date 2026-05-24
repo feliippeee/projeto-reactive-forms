@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { MaritalStatusEnum } from "../enums/matirial-status.enum";
+import { PhoneTypeEnum } from "../enums/phone-type.enum";
+import { AddressTypeEnum } from "../enums/address-type.enum";
 
 @Injectable({
     providedIn: "root",
@@ -11,24 +14,24 @@ private readonly usersList: any[] = [
             email: 'fulano@hotmail.com',
             country: 'Brazil',
             state: 'São Paulo',
-            maritalStatus: 1, // -> Estado Civil // -> Solteiro
+            maritalStatus: MaritalStatusEnum.SINGLE, // -> Estado Civil // -> Solteiro
             monthlyIncome: 5000, // -> Renda Mensal
             birthDate: '25/02/1991',
             phoneList: [
                 {
-                    type: 1, // -> Residencial
+                    type: PhoneTypeEnum.RESIDENTIAL, // -> Residencial
                     areaCode: '11', // -> DDD
                     internationalCode: '+55', // -> DDI
                     number: '1234-5678', // -> Número
                 },
                 {
-                    type: 2, // -> Celular
+                    type: PhoneTypeEnum.MOBILE, // -> Celular
                     areaCode: '11', // -> DDD
                     internationalCode: '+55', // -> DDI
                     number: '91111-2222', // -> Número
                 },
                 {
-                     type: 3, // -> Emergência
+                     type: PhoneTypeEnum.EMERGENCY, // -> Emergência
                      areaCode: '11', // -> DDD
                      internationalCode: '+55', // -> DDI
                      number: '93333-4444', // -> Número
@@ -36,7 +39,7 @@ private readonly usersList: any[] = [
             ],
             addressList: [
                 {
-                    type: 1, // -> Residencial
+                    type: AddressTypeEnum.RESIDENTIAL, // -> Residencial
                     street: 'Rua de Tal',
                     complement: 'Próximo ao parque',
                     country: 'Brazil',
@@ -44,7 +47,7 @@ private readonly usersList: any[] = [
                     city: 'Ribeirão Preto',
                 },
                 {
-                     type: 2, // -> Trabalho
+                     type: AddressTypeEnum.WORK, // -> Trabalho
                      street: 'Avenida de Tal',
                      complement: 'Próximo ao centro comercial',
                      country: 'Brazil',
@@ -52,7 +55,7 @@ private readonly usersList: any[] = [
                      city: 'Santos',
                 },
                 {
-                    type: 3, // -> Alternativo
+                    type: AddressTypeEnum.ALTERNATIVE, // -> Alternativo
                     street: 'Estrada de Tal',
                     complement: 'Próximo ao shopping',
                     country: 'Brazil',
@@ -78,12 +81,12 @@ private readonly usersList: any[] = [
             email: 'laura@hotmail.com',
             country: 'Brazil',
             state: 'São Paulo',
-            maritalStatus: 2, // -> Estado Civil // -> Casada
+            maritalStatus: MaritalStatusEnum.MARRIED, // -> Estado Civil // -> Casada
             monthlyIncome: 6000, // -> Renda Mensal
             birthDate: '12/12/1994',
             phoneList: [
                 {
-                    type: 3, // -> Emergência
+                    type: PhoneTypeEnum.EMERGENCY, // -> Emergência
                     areaCode: '11', // -> DDD
                     internationalCode: '+55', // -> DDI
                     number: '93333-7777', // -> Número
@@ -91,7 +94,7 @@ private readonly usersList: any[] = [
             ],
             addressList: [
                 {
-                    type: 2, // -> Trabalho
+                    type: AddressTypeEnum.WORK, // -> Trabalho
                     street: 'Avenida de Tal',
                     complement: 'Próximo ao centro comercial',
                     country: 'Brazil',
@@ -112,12 +115,12 @@ private readonly usersList: any[] = [
             email: 'marcos@hotmail.com',
             country: 'Brazil',
             state: 'São Paulo',
-            maritalStatus: 3, // -> Estado Civil // -> Divorciado
+            maritalStatus: MaritalStatusEnum.DIVORCED, // -> Estado Civil // -> Divorciado
             monthlyIncome: 7000, // -> Renda Mensal
             birthDate: '11/11/1991',
             phoneList: [
                 {
-                    type: 2, // -> Celular
+                    type: PhoneTypeEnum.MOBILE, // -> Celular
                     areaCode: '11', // -> DDD
                     internationalCode: '+55', // -> DDI
                     number: '91111-7777', // -> Número
@@ -125,7 +128,7 @@ private readonly usersList: any[] = [
             ],
             addressList: [
                 {
-                    type: 3, // -> Alternativo
+                    type: AddressTypeEnum.ALTERNATIVE, // -> Alternativo
                     street: 'Estrada de Tal',
                     complement: 'Próximo ao shopping',
                     country: 'Brazil',
