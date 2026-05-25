@@ -3,10 +3,12 @@ import { AngularMaterialModule } from "../angular-material/angular.material.modu
 import { PipesModule } from "../Pipes/pipes.module";
 import { UsersListComponent } from './users-list/users-list.component';
 import { CommonModule } from "@angular/common";
+import { GeneralInformationsComponent } from './general-informations/general-informations.component';
 
 @NgModule({
     declarations: [
-    UsersListComponent
+    UsersListComponent,
+    GeneralInformationsComponent
   ],
     imports: [
         CommonModule, // Importa o CommonModule para usar diretivas comuns do Angular, usar o *ngFor, *ngIf, etc no user-list.html .
@@ -14,7 +16,8 @@ import { CommonModule } from "@angular/common";
         PipesModule
     ],
     exports: [
-        UsersListComponent
+        UsersListComponent,
+        GeneralInformationsComponent
     ],
 })
 export class ComponentsModule {}
