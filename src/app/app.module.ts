@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     AngularMaterialModule,
-    ComponentsModule,
+    ComponentsModule, //declarado aqui, tudo o que for exportado no ComponentsModule estará disponível para toda a aplicação
     HttpClientModule,
   ],
   providers: [

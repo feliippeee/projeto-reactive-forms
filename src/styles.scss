@@ -5,4 +5,10 @@ body {
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", 
     sans-serif; 
-    background-color: gray; }
+    background-color: gray; 
+}
+
+.user-card-hover:hover {
+    background-color: #9CA3AF !important;
+    cursor: pointer;
+}
