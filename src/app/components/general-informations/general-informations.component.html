@@ -1,13 +1,6 @@
 <div class="p-4">
     <div class="p-4 grid grid-cols-3 gap-4">
-        <div>
-            <p class="text-xl font-semibold">Nome:</p>
-            <p class="text-lg">Fulano</p>
-        </div>
-        <div>
-            <p class="text-xl font-semibold">Email:</p>
-            <p class="text-lg">{{'fulano@example.com'}}</p>
-        </div>
+        <app-user-info-item title="Nome" [text]="'Fulano'"></app-user-info-item>
     </div>
     <div class="p-4 grid lg:grid-cols-3 gap-4">
          <div>
