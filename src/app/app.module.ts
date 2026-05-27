@@ -8,6 +8,11 @@ import { AngularMaterialModule } from './angular-material/angular.material.modul
 import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localePt); // cofiguração do pipe de moeda para o padrão brasileiro
+
 @NgModule({
   declarations: [
     AppComponent
