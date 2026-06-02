@@ -5,12 +5,14 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { CommonModule } from "@angular/common";
 import { GeneralInformationsComponent } from './general-informations/general-informations.component';
 import { UserInfoItemComponent } from './user-info-item/user-info-item.component';
+import { ContactInformationsComponent } from './contact-informations/contact-informations.component';
 
 @NgModule({
     declarations: [
     UsersListComponent,
     GeneralInformationsComponent,
-    UserInfoItemComponent
+    UserInfoItemComponent,
+    ContactInformationsComponent
   ],
     imports: [
         CommonModule, // Importa o CommonModule para usar diretivas comuns do Angular, usar o *ngFor, *ngIf, etc no user-list.html .
@@ -19,7 +21,8 @@ import { UserInfoItemComponent } from './user-info-item/user-info-item.component
     ],
     exports: [
         UsersListComponent,
-        GeneralInformationsComponent
+        GeneralInformationsComponent,
+        ContactInformationsComponent
     ],
 })
 export class ComponentsModule {}
