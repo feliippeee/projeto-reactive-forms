@@ -2,6 +2,8 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PhoneList } from '../../../../types/phone-list';
 import { PhoneTypeEnum } from '../../../../enums/phone-type.enum';
 import { IPhone } from '../../../../interfaces/user/phone.interface';
+import { IPhoneToDisplay } from '../../../../interfaces/phone-to-display.interface';
+import { phoneTypeDescriptonMap } from '../../../../utils/phone-type-descripton-map';
 
 @Component({
   selector: 'app-phone-list',
@@ -9,7 +11,7 @@ import { IPhone } from '../../../../interfaces/user/phone.interface';
   styleUrl: './phone-list.component.scss'
 })
 export class PhoneListComponent implements OnChanges {
-  phonelistToDisplay: any[] = [];
+  phonelistToDisplay: IPhoneToDisplay[] = [];
   @Input({ required: true }) userPhoneList: PhoneList | undefined = [];
   
   ngOnChanges(changes: SimpleChanges) {
@@ -20,12 +22,6 @@ export class PhoneListComponent implements OnChanges {
   }
   preparePhoneListToDisplay() {
     this.phonelistToDisplay = [];
-
-    const phoneTypeDescriptonMap: { [key in PhoneTypeEnum]: string } = { //tipagem do objeto PhoneTypeEnum que vem em formato number mais vai retornar string ex: 1 vai retornar residencial, 2 vai retornar celular e 3 vai retornar emergencial
-      [PhoneTypeEnum.RESIDENTIAL]: 'Residencial',
-      [PhoneTypeEnum.MOBILE]: 'Celular',
-      [PhoneTypeEnum.EMERGENCY]: 'Emergencial',
-    };
 
     Object.keys(phoneTypeDescriptonMap).map(Number).forEach((phoneType: Number) => {
       const phoneFound = this.userPhoneList?.find((userPhone: IPhone) => userPhone.type === phoneType);
