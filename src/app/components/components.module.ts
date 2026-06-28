@@ -8,6 +8,7 @@ import { UserInfoItemComponent } from './user-info-item/user-info-item.component
 import { ContactInformationsComponent } from './contact-informations/contact-informations.component';
 import { PhoneListComponent } from './contact-informations/components/phone-list/phone-list.component';
 import { AddressListComponent } from './contact-informations/components/address-list/address-list.component';
+import { DependentsListComponent } from './dependents-list/dependents-list.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { AddressListComponent } from './contact-informations/components/address-
     UserInfoItemComponent,
     ContactInformationsComponent,
     PhoneListComponent,
-    AddressListComponent
+    AddressListComponent,
+    DependentsListComponent
   ],
     imports: [
         CommonModule, // Importa o CommonModule para usar diretivas comuns do Angular, usar o *ngFor, *ngIf, etc no user-list.html .
@@ -26,7 +28,8 @@ import { AddressListComponent } from './contact-informations/components/address-
     exports: [
         UsersListComponent,
         GeneralInformationsComponent,
-        ContactInformationsComponent
+        ContactInformationsComponent,
+        DependentsListComponent,
     ],
 })
 export class ComponentsModule {}
