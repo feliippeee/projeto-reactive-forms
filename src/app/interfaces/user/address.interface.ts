@@ -1,5 +1,5 @@
 export interface IAddress {
-    type: number;
+    type: Number;
     street: string;
     complement: string;
     country: string;
