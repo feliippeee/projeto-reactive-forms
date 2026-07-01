@@ -12,7 +12,7 @@
             <div class="grid sm:grid-cols-3">
                 <app-user-info-item title="Nome" [text]="dependent.name"></app-user-info-item>
                 <app-user-info-item title="Idade" [text]="dependent.age.toString()"></app-user-info-item>
-                <app-user-info-item title="Documento" [text]="dependent.document.toString()"></app-user-info-item>
+                <app-user-info-item title="Documento" [text]="dependent.document | cpf: true"></app-user-info-item>
             </div>
 
             <hr class="block sm:hidden" />
