@@ -26,14 +26,14 @@ export class AddressListComponent implements OnChanges {
   prepareAddressListToDisplay() {
     this.addressListToDisplay = [];
 
-    Object.keys(addressTypeDescriptionMap).map(Number).forEach((addressType: Number) => {
+    Object.keys(addressTypeDescriptionMap).map(Number).forEach((addressType: number) => {
       const addressFound = this.userAddressList?.find((userAddress) => userAddress.type === addressType); // encontando o endereço do tipo atual no map
 
       this.addressListToDisplay.push(this.returnAddressToDisplay(addressFound, addressType ));
     } );
   }
   
-  returnAddressToDisplay(address: IAddress | undefined, addressType: Number): IAddressToDisplay {
+  returnAddressToDisplay(address: IAddress | undefined, addressType: number): IAddressToDisplay {
     if(!address) {
       return {
         typeDescription: addressTypeDescriptionMap[addressType as AddressTypeEnum],
