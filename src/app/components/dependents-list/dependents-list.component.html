@@ -1,11 +1,21 @@
-<div *ngFor="let dependent of dependentsList">
+<div class="p-4">
     <p class="text-2xl font-semibold">Dependentes</p>
-    <div class="grid sm:grid-cols-3">
-        <app-user-info-item title="Nome" [text]="dependent.name"></app-user-info-item>
-        <app-user-info-item title="Idade" [text]="dependent.age.toString()"></app-user-info-item>
-        <app-user-info-item title="Documento" [text]="dependent.document.toString()"></app-user-info-item>
-    </div>
 
-    <hr class="block sm:hidden" />
-    
+    <ng-container *ngIf="dependentsList?.length === 0; else dependentsListTemplate">
+        <div>
+            <p class="text-lg">O usuário não possui dependentes.</p>
+        </div>
+    </ng-container> <!-- uma tag do angular mais não vai renderiza no html na dom final -->
+
+    <ng-template #dependentsListTemplate>
+        <div *ngFor="let dependent of dependentsList">
+            <div class="grid sm:grid-cols-3">
+                <app-user-info-item title="Nome" [text]="dependent.name"></app-user-info-item>
+                <app-user-info-item title="Idade" [text]="dependent.age.toString()"></app-user-info-item>
+                <app-user-info-item title="Documento" [text]="dependent.document.toString()"></app-user-info-item>
+            </div>
+
+            <hr class="block sm:hidden" />
+        </div>
+    </ng-template>
 </div>
