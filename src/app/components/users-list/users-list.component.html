@@ -1,5 +1,10 @@
 <div class="p-4 grid gap-4 sm:grid-cols-3">
-    <mat-card class="user-card-hover" *ngFor="let user of usersList">
+    <mat-card class="
+        user-card-hover" 
+        *ngFor="let user of usersList; let i = index;"
+        (click)="onUserSelected(i)"
+        [ngClass]="{'user-selected': userSelectedIndex === i }"
+        >
         <mat-card-header>
             <mat-card-title class="text-2xl">{{user.name}}</mat-card-title>
             <mat-card-subtitle class="text-sm">{{user.email}}</mat-card-subtitle>
