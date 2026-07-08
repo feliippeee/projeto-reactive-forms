@@ -14,6 +14,8 @@ import { IUser } from './interfaces/user/user.interface';
 })
 
 export class AppComponent implements OnInit {
+isInEditMode: boolean = false;
+
   userSelectedIndex: number | undefined;
   userSelected: IUser = {} as IUser; // criando um clone do usuário selecionado
   usersList: UsersListResponse = [];
@@ -49,5 +51,13 @@ export class AppComponent implements OnInit {
       this.userSelected = structuredClone(userFound); // criando um clone do usuário selecionado
       this.currentTabIndex = 0; // resetando o índice da aba para a primeira aba (Geral) ao selecionar um novo usuário
     }
+  }
+
+  onCancelButton() {
+    this.isInEditMode = false;
+  }
+  
+  onEditButton() {
+    this.isInEditMode = true;
   }
 }
