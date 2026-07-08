@@ -18,8 +18,8 @@ isInEditMode: boolean = false;
 
   userSelectedIndex: number | undefined;
   userSelected: IUser = {} as IUser; // criando um clone do usuário selecionado
+  
   usersList: UsersListResponse = [];
-  currentTabIndex: number = 0;
 
   constructor(
     private readonly _countriesService: CountriesService,
@@ -49,7 +49,7 @@ isInEditMode: boolean = false;
     if (userFound) {
       this.userSelectedIndex = userIndex;
       this.userSelected = structuredClone(userFound); // criando um clone do usuário selecionado
-      this.currentTabIndex = 0; // resetando o índice da aba para a primeira aba (Geral) ao selecionar um novo usuário
+     
     }
   }
 
