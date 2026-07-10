@@ -41,5 +41,26 @@
         </mat-form-field>   
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-4"></div>
+    <div class="grid lg:grid-cols-3 gap-4">
+        <div class="w-full">
+            <div class="text-lg">Estado Civil:</div>
+            <mat-radio-group class="w-full flex flex-col sm:flex-row sm:justify-between">
+                <mat-radio-button value="1">Solteiro</mat-radio-button>
+                <mat-radio-button value="2">Casado</mat-radio-button>
+                <mat-radio-button value="3">Divorciado</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <mat-form-field class="w-full">
+            <mat-label>Renda Mensal:</mat-label>
+            <input matInput placeholder="R$ 5.000,00" value="R$ 5.000,00">
+        </mat-form-field>
+        <mat-form-field>
+        <mat-label>Data de Nascimento:</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>DD/MM/AAAA</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+    </div>
 </div>
