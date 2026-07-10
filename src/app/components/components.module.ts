@@ -14,6 +14,7 @@ import { UserInformationsContainerComponent } from './user-informations-containe
 import { GeneralInformationsEditComponent } from './general-informations-edit/general-informations-edit.component';
 import { ContactInformationsEditComponent } from './contact-informations-edit/contact-informations-edit.component';
 import { PhoneListEditComponent } from './contact-informations-edit/components/phone-list-edit/phone-list-edit.component';
+import { AddressListEditComponent } from './contact-informations-edit/components/address-list-edit/address-list-edit.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { PhoneListEditComponent } from './contact-informations-edit/components/p
     UserInformationsContainerComponent,
     GeneralInformationsEditComponent,
     ContactInformationsEditComponent,
-    PhoneListEditComponent
+    PhoneListEditComponent,
+    AddressListEditComponent
   ],
     imports: [
         CommonModule, // Importa o CommonModule para usar diretivas comuns do Angular, usar o *ngFor, *ngIf, etc no user-list.html .
