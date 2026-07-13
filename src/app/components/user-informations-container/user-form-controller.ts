@@ -31,6 +31,8 @@ export class UserFormController {
     }
 
     fulfillUserForm(user: IUser) {
+        this.resetUserForm(); // Resetando o formulário do usuário antes de preenchê-lo com novos dados
+
         this.fulfillGeneralInformations(user);  
 
         this.fulfillPhoneList(user.phoneList);
@@ -40,6 +42,21 @@ export class UserFormController {
         this.fulfillDependentsList(user.dependentsList);
 
         console.log(this.userForm); // Exibindo o valor do formulário do usuário no console
+    }
+
+    private resetUserForm() {
+        this.userForm.reset(); // Resetando o formulário do usuário
+        
+        this.generalInformation.reset(); // Resetando o formulário de informações gerais do usuário
+        
+        this.phoneList.reset(); // Resetando a lista de telefones do formulário
+        this.phoneList.clear(); // Limpando a lista de telefones do formulário
+        
+        this.addressList.reset(); // Resetando a lista de endereços do formulário
+        this.addressList.clear(); // Limpando a lista de endereços do formulário
+        
+        this.dependentsList.reset(); // Resetando a lista de dependentes do formulário
+        this.dependentsList.clear(); // Limpando a lista de dependentes do formulário
     }
     private fulfillDependentsList(userDependentsList: DependentsList) {
         userDependentsList.forEach((dependent) => {
