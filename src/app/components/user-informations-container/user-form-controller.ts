@@ -14,8 +14,8 @@ export class UserFormController {
         this.createUserForm(); // Chamando o método para criar o formulário do usuário ao instanciar a classe
     }
 
-    get generalInformation(): FormGroup {
-        return this.userForm.get('generalInformation') as FormGroup; // Retornando o formulário de informações gerais do usuário
+    get generalInformations(): FormGroup {
+        return this.userForm.get('generalInformations') as FormGroup; // Retornando o formulário de informações gerais do usuário
     }
 
     get phoneList(): FormArray {
@@ -47,7 +47,7 @@ export class UserFormController {
     private resetUserForm() {
         this.userForm.reset(); // Resetando o formulário do usuário
         
-        this.generalInformation.reset(); // Resetando o formulário de informações gerais do usuário
+        this.generalInformations.reset(); // Resetando o formulário de informações gerais do usuário
         
         this.phoneList.reset(); // Resetando a lista de telefones do formulário
         this.phoneList.clear(); // Limpando a lista de telefones do formulário
@@ -93,18 +93,18 @@ export class UserFormController {
     }
 
     private fulfillGeneralInformations(user: IUser) {
-        this.generalInformation.patchValue(user); // Preenchendo o formulário com as informações do usuário
+        this.generalInformations.patchValue(user); // Preenchendo o formulário com as informações do usuário
     }
 
     private createUserForm() {
         this.userForm = this._fb.group({
-            generalInformation: this._fb.group({
+            generalInformations: this._fb.group({
                 name: ['', Validators.required],
                 email: ['', Validators.email],
                 country: ['', Validators.required],
                 state: ['', Validators.required],
                 maritalStatus: [null, Validators.required],
-                mounthlyIncome: [null, Validators.required],
+                monthlyIncome: [null, Validators.required],
                 birthDate: [null, Validators.required],
 
             }),
