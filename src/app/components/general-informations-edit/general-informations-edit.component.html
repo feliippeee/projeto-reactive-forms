@@ -13,7 +13,6 @@
                 <mat-error *ngIf="emailControl.hasError('pattern')">O Email é inválido.</mat-error>
             </mat-form-field>
         </div>
-
         <div class="grid lg:grid-cols-3 gap-4">
             <mat-form-field class="example-full-width">
                 <mat-label>País:</mat-label>
@@ -25,9 +24,9 @@
                     [matAutocomplete]="autoCountry"
                     formControlName="country"    
                 >
-                <mat-autocomplete #autoCountry="matAutocomplete">
-                    <mat-option *ngFor="let op of []">
-                        {{ '' }}
+                <mat-autocomplete #autoCountry="matAutocomplete" (optionSelected)="onCountrySelected($event)">
+                    <mat-option *ngFor="let country of countriesListFiltered" [value]="country.name">
+                        {{ country.name }}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
