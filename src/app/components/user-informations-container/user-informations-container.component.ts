@@ -4,21 +4,27 @@ import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
 import { take } from 'rxjs';
 import { CountriesList } from '../../types/countries-list';
+import { StatesService } from '../../services/states.service';
+import { StatesList } from '../../types/states-list';
 
 @Component({
   selector: 'app-user-informations-container',
   templateUrl: './user-informations-container.component.html',
   styleUrl: './user-informations-container.component.scss'
 })
-export class UserInformationsContainerComponent extends UserFormController implements OnInit, OnChanges { // Implementando a interface OnChanges para detectar mudanças nas propriedades de entrada (Input) e extendendo a classe UserFormController para herdar suas funcionalidades
+export class UserInformationsContainerComponent extends UserFormController implements OnInit, OnChanges {
+ // Implementando a interface OnChanges para detectar mudanças nas propriedades de entrada (Input) e extendendo a classe UserFormController para herdar suas funcionalidades
   currentTabIndex = 0; // resetando o índice da aba para a primeira aba (Geral) ao selecionar um novo usuário
 
-  countriesList: CountriesList = []
+  countriesList: CountriesList = [];
+  statesList: StatesList = [];
 
   private readonly _countriesService = inject(CountriesService) //
-  
+  private readonly _statesService = inject(StatesService);
+
   @Input({ required: true }) isInEditMode: boolean = false; // Input obrigatório para determinar se o modo de edição está ativo ou não
   @Input({ required: true }) userSelected: IUser = {} as IUser; // Input obrigatório para determinar se o modo de edição está ativo ou não
+  
   
   ngOnInit() {
     this.getCountriesList();
@@ -31,7 +37,20 @@ export class UserInformationsContainerComponent extends UserFormController imple
 
       if (HAS_USER_SELECTED) {
         this.fulfillUserForm(this.userSelected); // Preenchendo o formulário com as informações do usuário selecionado
+        
+        this.getStatesList(this.userSelected.country);
       }
+  }
+
+  onCountrySelected(countryName: string) {
+    this.getStatesList(countryName);
+  }
+  
+  private getStatesList(country: string) {
+    this._statesService.getStates(country).pipe(take(1)).subscribe((statesList: StatesList ) => {
+      this.statesList = statesList;
+    });
+    
   }
 
   private getCountriesList() {

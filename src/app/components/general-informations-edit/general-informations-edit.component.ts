@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CountriesList } from '../../types/countries-list';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { StatesList } from '../../types/states-list';
 
 @Component({
   selector: 'app-general-informations-edit',
@@ -10,17 +11,24 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 })
 export class GeneralInformationsEditComponent implements OnInit, OnChanges {
   countriesListFiltered: CountriesList = [];
+  statesListFiltered: StatesList = [];
 
   @Input({ required: true}) userForm!: FormGroup;
   @Input({ required: true}) countriesList: CountriesList = [];
+  @Input({ required: true}) statesList: StatesList = [];
+
+  @Output('onCountrySelected') onCountrySelectedEmitt = new EventEmitter<string>();
   
   ngOnInit() {
     this.watchcountryFormChangesAndFilter();
+
+    this.watchStateFormChangesAndFilter();
   }
   
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
     this.countriesListFiltered = this.countriesList; 
+    this.statesListFiltered = this.statesList;
   }
   
   get emailControl(): FormControl {
@@ -31,8 +39,12 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
     return this.userForm.get('generalInformations.country') as FormControl;
   }
 
+  get stateControl(): FormControl {
+    return this.userForm.get('generalInformations.state') as FormControl;
+  }
+
   onCountrySelected(event: MatAutocompleteSelectedEvent) {
-    console.log(event.option.value);
+    this.onCountrySelectedEmitt.emit(event.option.value);
   }
 
   private watchcountryFormChangesAndFilter() {
@@ -43,5 +55,15 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
 
   private filterCountriesList(searchTerm: string) {
     this.countriesListFiltered = this.countriesList.filter((country) => country.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase().trim()));
+  }
+
+  private watchStateFormChangesAndFilter() {
+    this.stateControl.valueChanges.subscribe(this.filterStatesList.bind(this));
+  }
+
+  private filterStatesList(searchTerm: string) {
+    this.statesListFiltered = this.statesList.filter(
+      (state) => state.name.toLowerCase().includes(searchTerm.toLowerCase().trim())
+  );
   }
 }

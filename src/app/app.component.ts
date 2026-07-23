@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesService } from './services/countries.service';
-import { StateService } from './services/state.service';
+import { StatesService } from './services/states.service';
 import { CitiesService } from './services/cities.service';
 import { UsersService } from './services/users.service';
 import { UsersListResponse } from './types/users-list-response';
@@ -23,7 +23,7 @@ isInEditMode: boolean = false;
 
   constructor(
     private readonly _countriesService: CountriesService,
-    private readonly _stateService: StateService,
+    private readonly _statesService: StatesService,
     private readonly _citiesService: CitiesService,
     private readonly _usersService: UsersService,
   ) { }
