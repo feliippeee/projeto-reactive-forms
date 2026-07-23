@@ -17,6 +17,7 @@ import { ContactInformationsEditComponent } from './contact-informations-edit/co
 import { PhoneListEditComponent } from './contact-informations-edit/components/phone-list-edit/phone-list-edit.component';
 import { AddressListEditComponent } from './contact-informations-edit/components/address-list-edit/address-list-edit.component';
 import { DependentsListEditComponent } from './dependents-list-edit/dependents-list-edit.component';
+import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { DependentsListEditComponent } from './dependents-list-edit/dependents-l
         CommonModule, // Importa o CommonModule para usar diretivas comuns do Angular, usar o *ngFor, *ngIf, etc no user-list.html .
         AngularMaterialModule, // Importa o módulo AngularMaterialModule para usar os componentes do Angular Material
         PipesModule,
-        ReactiveFormsModule // Importa o módulo ReactiveFormsModule para usar formulários reativos no Angular
+        ReactiveFormsModule, // Importa o módulo ReactiveFormsModule para usar formulários reativos no Angular
+        NgxMaskDirective
     ],
     exports: [
         UsersListComponent,
@@ -49,5 +51,8 @@ import { DependentsListEditComponent } from './dependents-list-edit/dependents-l
         ButtonsContainerComponent,
         UserInformationsContainerComponent
     ],
+    providers: [
+        provideNgxMask()
+    ]
 })
 export class ComponentsModule {}
