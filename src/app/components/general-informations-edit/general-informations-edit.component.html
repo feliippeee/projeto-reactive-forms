@@ -54,9 +54,12 @@
                     class="w-full flex flex-col sm:flex-row sm:justify-between" 
                     formControlName="maritalStatus"
                 >
-                    <mat-radio-button [value]="1">Solteiro</mat-radio-button>
-                    <mat-radio-button [value]="2">Casado</mat-radio-button>
-                    <mat-radio-button [value]="3">Divorciado</mat-radio-button>
+                    <mat-radio-button 
+                        *ngFor="let maritalStatusObj of maritalStatusArray"
+                        [value]="maritalStatusObj.code">
+                        {{maritalStatusObj.description}}
+                    </mat-radio-button>
+                    
                 </mat-radio-group>
             </div>
             <mat-form-field class="w-full">
