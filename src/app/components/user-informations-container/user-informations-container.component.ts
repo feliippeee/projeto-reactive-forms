@@ -58,4 +58,8 @@ export class UserInformationsContainerComponent extends UserFormController imple
       this.countriesList = countriesList;
     });
   }
+
+  mostrarUserForm() {
+    console.log('userForm', this.userForm);
+  }
 }

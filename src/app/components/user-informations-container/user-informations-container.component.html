@@ -1,7 +1,11 @@
 <mat-tab-group [(selectedIndex)]="currentTabIndex">
     <mat-tab label="Geral">
-        <app-general-informations [user]="userSelected"></app-general-informations>
+        <app-general-informations 
+            *ngIf="!isInEditMode"
+            [user]="userSelected">
+        </app-general-informations>
         <app-general-informations-edit 
+            *ngIf="isInEditMode"
             [userForm]="userForm"
             [countriesList]="countriesList"
             [statesList]="statesList"
@@ -18,3 +22,11 @@
         <app-dependents-list-edit></app-dependents-list-edit>
     </mat-tab>
 </mat-tab-group>
+
+<h1>UserForm Valid: {{userForm.valid}}</h1>
+<h1>GeneralInformations Group Valid: {{userForm.get('generalInformations')?.valid}}</h1>
+<button 
+    class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white bg-indigo-600 hover:bg-indigo-500" 
+    (click)="mostrarUserForm()">
+    Mostrar Form
+</button>
