@@ -5,6 +5,8 @@ import { PhoneList } from "../../types/phone-list";
 import { AddressList } from "../../types/address-list";
 import { DependentsList } from "../../types/dependents-list";
 import { convertPtBrDateToDateObj } from "../../utils/convert-pt-br-date-to-date-obj";
+import { preparePhoneList } from "../../utils/prepare-phone-list";
+import { PhoneTypeEnum } from "../../enums/phone-type.enum";
 
 export class UserFormController {
     userForm!: FormGroup; // Propriedade para armazenar o formulário do usuário
@@ -83,16 +85,17 @@ export class UserFormController {
         })
     }
 
-    private fulfillPhoneList(phoneList: PhoneList) {
-        phoneList.forEach((phone) => {
+    private fulfillPhoneList(UserPhoneList: PhoneList) {
+        preparePhoneList(UserPhoneList, false, (phone) => {
+            const phoneValidators = phone.type === PhoneTypeEnum.EMERGENCY ? [] : [Validators.required];
             this.phoneList.push(this._fb.group({
-                type: [phone.type, Validators.required],
-                areaCode: [phone.areaCode, Validators.required],
-                internationalCode: [phone.internationalCode, Validators.required],
-                number: [phone.number, Validators.required],
-            })); // preenchendo cada telefone do usuário ao formulário de lista de telefones
+                type: [phone.type],
+                typeDescription: [phone.typeDescription],
+                number: [phone.phoneNumber, phoneValidators],
+            }));
         })
-        
+
+        console.log('form phoneList', this.phoneList);
     }
 
     private fulfillGeneralInformations(user: IUser) {

@@ -26,9 +26,9 @@ export class PhoneListComponent implements OnChanges {
 
     const originalUserPhoneList = this.userPhoneList && this.userPhoneList.length > 0 ? this.userPhoneList : [];
 
-    preparePhoneList(originalUserPhoneList, (phone) =>{
+    preparePhoneList(originalUserPhoneList,true, (phone) =>{
       this.phonelistToDisplay.push(phone)
-      console.log('callback', phone);
+  
     }); 
   }
 }
