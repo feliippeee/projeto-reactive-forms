@@ -1,9 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PhoneList } from '../../../../types/phone-list';
-import { PhoneTypeEnum } from '../../../../enums/phone-type.enum';
-import { IPhone } from '../../../../interfaces/user/phone.interface';
 import { IPhoneToDisplay } from '../../../../interfaces/phone-to-display.interface';
-import { phoneTypeDescriptonMap } from '../../../../utils/phone-type-descripton-map';
 import { preparePhoneList } from '../../../../utils/prepare-phone-list';
 
 @Component({

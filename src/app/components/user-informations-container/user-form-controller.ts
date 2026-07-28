@@ -24,11 +24,11 @@ export class UserFormController {
     }
 
     get phoneList(): FormArray {
-        return this.userForm.get('contactInformation.phoneList') as FormArray;
+        return this.userForm.get('contactInformations.phoneList') as FormArray;
     }
 
     get addressList(): FormArray {
-        return this.userForm.get('contactInformation.addressList') as FormArray;
+        return this.userForm.get('contactInformations.addressList') as FormArray;
     }
 
     get dependentsList(): FormArray {
@@ -118,7 +118,7 @@ export class UserFormController {
                 birthDate: [null, Validators.required],
 
             }),
-            contactInformation: this._fb.group({
+            contactInformations: this._fb.group({
                 phoneList: this._fb.array([]),
                 addressList: this._fb.array([]),
             }),

@@ -1,14 +1,13 @@
-<div class="grid lg:grid-cols-3 lg:gap-4">
-        <mat-form-field class="w-full">
-            <mat-label>Residencial:</mat-label>
-            <input matInput placeholder="+55 11 1234-1234" mask="+00 00 0000-0000">
+<div class="grid lg:grid-cols-3 lg:gap-4" [formGroup]="userForm">
+    <ng-container formGroupName="contactInformations">
+        <ng-container formArrayName="phoneList">
+            <mat-form-field class="w-full" *ngFor="let phone of phoneList.controls; let i = index" [formGroupName]="i">
+                <mat-label>{{ phoneList.value[i].typeDescription }}:</mat-label>
+                <input matInput placeholder="+55 11 1234-1234" mask="+00 00 0000-0000" formControlName="number">
         </mat-form-field>
-        <mat-form-field class="w-full">
-            <mat-label>Celular:</mat-label>
-            <input matInput placeholder="+55 11 91234-1234" mask="+00 00 00000-0000">
-        </mat-form-field>
-        <mat-form-field class="w-full">
-            <mat-label>Emergência:</mat-label>
-            <input matInput placeholder="+55 11 91234-1234" mask="+00 00 0000-0000||+00 00 00000-0000">
-        </mat-form-field>
+        </ng-container>
+    </ng-container>
+        
+        
+       
 </div>
