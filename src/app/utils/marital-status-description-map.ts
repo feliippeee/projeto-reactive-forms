@@ -10,4 +10,4 @@ export const maritalStatusDescriptionMap: { [key in MaritalStatusEnum]: string} 
     return { code: key, description: maritalStatusDescriptionMap[key as MaritalStatusEnum],};
   });
 
-  console.log('maritalStatusArray', maritalStatusArray)
+  //console.log('maritalStatusArray', maritalStatusArray)

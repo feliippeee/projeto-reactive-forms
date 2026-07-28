@@ -10,6 +10,6 @@ export class PhoneListEditComponent {
   @Input({ required: true}) userForm!: FormGroup;
 
   get phoneList(): FormArray {
-    return this.userForm.get('contactInformations.phoneList') as FormArray;
+    return this.userForm.get('contactInformations.phoneList') as FormArray;    
   }
 }
