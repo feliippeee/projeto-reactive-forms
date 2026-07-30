@@ -14,18 +14,19 @@ export class PhoneListComponent implements OnChanges {
   
   ngOnChanges(changes: SimpleChanges) {
    const PHONE_LIST_LOADED = Array.isArray(changes['userPhoneList'].currentValue);
-    if (PHONE_LIST_LOADED) {
+  
+   if (PHONE_LIST_LOADED) {
       this.preparePhoneListToDisplay();
     }
   }
+
   preparePhoneListToDisplay() {
     this.phonelistToDisplay = [];
 
     const originalUserPhoneList = this.userPhoneList && this.userPhoneList.length > 0 ? this.userPhoneList : [];
 
     preparePhoneList(originalUserPhoneList,true, (phone) =>{
-      this.phonelistToDisplay.push(phone)
-  
+      this.phonelistToDisplay.push(phone)  
     }); 
   }
 }
