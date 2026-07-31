@@ -1,9 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AddressList } from '../../../../types/address-list';
-import { AddressTypeEnum } from '../../../../enums/address-type.enum';
-import { IAddress } from '../../../../interfaces/user/address.interface';
-import { addressTypeDescriptionMap } from '../../../../utils/address-type-description-map';
 import { IAddressToDisplay } from '../../../../interfaces/address-to-display.interface';
+import { prepareAddressList } from '../../../../utils/prepare-address-list';
 
 @Component({
   selector: 'app-address-list',
@@ -26,30 +24,10 @@ export class AddressListComponent implements OnChanges {
   prepareAddressListToDisplay() {
     this.addressListToDisplay = [];
 
-    Object.keys(addressTypeDescriptionMap).map(Number).forEach((addressType: number) => {
-      const addressFound = this.userAddressList?.find((userAddress) => userAddress.type === addressType); // encontando o endereço do tipo atual no map
+    const originalAddressList = this.userAddressList && this.userAddressList.length > 0 ? this.userAddressList : []; // const criada devido o input ser AddressList ou undefined
 
-      this.addressListToDisplay.push(this.returnAddressToDisplay(addressFound, addressType ));
-    } );
-  }
-  
-  returnAddressToDisplay(address: IAddress | undefined, addressType: number): IAddressToDisplay {
-    if(!address) {
-      return {
-        typeDescription: addressTypeDescriptionMap[addressType as AddressTypeEnum],
-        type: addressType,
-        street: '-',
-        complement: '-',
-        country: '-',
-        state: '-',
-        city: '-',
-      }
-     }
-
-     return {
-      typeDescription: addressTypeDescriptionMap[addressType as AddressTypeEnum],
-      ...address,
-     }
-  }
-    
+    prepareAddressList(originalAddressList, true, (address) => {
+      this.addressListToDisplay.push(address);
+    });
+  }    
 }
