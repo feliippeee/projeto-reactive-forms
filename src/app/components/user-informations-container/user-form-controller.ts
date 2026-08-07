@@ -8,6 +8,7 @@ import { convertPtBrDateToDateObj } from "../../utils/convert-pt-br-date-to-date
 import { preparePhoneList } from "../../utils/prepare-phone-list";
 import { PhoneTypeEnum } from "../../enums/phone-type.enum";
 import { prepareAddressList } from "../../utils/prepare-address-list";
+import { requiredAddressValidator } from "../../utils/user-form-validators/required-address-validator";
 
 export class UserFormController {
     userForm!: FormGroup; // Propriedade para armazenar o formulário do usuário
@@ -83,6 +84,8 @@ export class UserFormController {
                 country: [address.country],
                 state: [address.state],
                 city: [address.city],
+            }, {
+                validators: requiredAddressValidator
             }));
         });
         console.log('addressList', this.addressList);
