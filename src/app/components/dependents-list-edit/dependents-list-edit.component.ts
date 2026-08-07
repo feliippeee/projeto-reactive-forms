@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dependents-list-edit',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './dependents-list-edit.component.scss'
 })
 export class DependentsListEditComponent {
+  @Input({ required: true}) userForm!: FormGroup;
 
+  get dependentsList(): FormArray {
+    return this.userForm.get('dependentsList') as FormArray;
+  }
 }
