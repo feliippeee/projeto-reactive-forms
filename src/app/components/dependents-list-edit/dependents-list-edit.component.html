@@ -13,14 +13,18 @@
                 <mat-form-field class="w-full">
                     <mat-label>Nome:</mat-label>
                     <input matInput placeholder="Fulano" formControlName="name">
+                    <mat-error>O Nome é obrigatório.</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-full">
                     <mat-label>Idade:</mat-label>
                     <input matInput placeholder="20" formControlName="age">
+                    <mat-error>A Idade é obrigatória.</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-full">
                     <mat-label>Documento:</mat-label>
-                    <input matInput placeholder="123.123.123-12" formControlName="document">
+                    <input matInput placeholder="123.123.123-12" mask="000.000.000-00" formControlName="document">
+                    <mat-error *ngIf="dependent.get('document')?.hasError('required')">O Documento é obrigatório.</mat-error>
+                    <mat-error *ngIf="dependent.get('document')?.hasError('mask')">O Documento é inválido.</mat-error>
                 </mat-form-field>
                 <div class="flex justify-center items-baseline box-border p-2">
                     <button
