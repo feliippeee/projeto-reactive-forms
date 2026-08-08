@@ -51,6 +51,10 @@ export class UserFormController {
         console.log(this.userForm); // Exibindo o valor do formulário do usuário no console
     }
 
+    removeDependent(dependentIndex: number) {
+        this.dependentsList.removeAt(dependentIndex); // Removendo o dependente do formulário com base no índice fornecido
+    }
+
     private resetUserForm() {
         this.userForm.reset(); // Resetando o formulário do usuário
         
@@ -65,6 +69,7 @@ export class UserFormController {
         this.dependentsList.reset(); // Resetando a lista de dependentes do formulário
         this.dependentsList.clear(); // Limpando a lista de dependentes do formulário
     }
+
     private fulfillDependentsList(userDependentsList: DependentsList) {
         userDependentsList.forEach((dependent) => {
             this.dependentsList.push(this._fb.group({
@@ -74,6 +79,7 @@ export class UserFormController {
             }));
         })
     }
+
     private fulfillAddressList(userAddressList: AddressList) {
         prepareAddressList(userAddressList, false, (address) => {
             this.addressList.push(this._fb.group({
@@ -90,6 +96,7 @@ export class UserFormController {
         });
         console.log('addressList', this.addressList);
     }
+
     private fulfillPhoneList(UserPhoneList: PhoneList) {
         preparePhoneList(UserPhoneList, false, (phone) => {
             const phoneValidators = phone.type === PhoneTypeEnum.EMERGENCY ? [] : [Validators.required];
