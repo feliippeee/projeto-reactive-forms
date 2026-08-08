@@ -2,6 +2,7 @@
   <mat-card class="p-4">
       <mat-card-content> 
         <app-users-list 
+          [isInEditMode]="isInEditMode"
           [usersList]="usersList" 
           (OnUserSelected)="onUserSelected($event)">
         </app-users-list>
