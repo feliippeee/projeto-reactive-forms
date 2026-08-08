@@ -27,6 +27,7 @@
         <app-dependents-list [dependentsList]="userSelected.dependentsList"></app-dependents-list>
         <app-dependents-list-edit 
             [userForm]="userForm"
+            (onAddDependent)="addDependent()"
             (onRemoveDependent)="removeDependent($event)"
         >
         </app-dependents-list-edit>

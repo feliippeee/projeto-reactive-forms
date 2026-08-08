@@ -3,8 +3,10 @@
 
     <div>
         <button
-            class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white bg-green-600 hover:bg-green-500">Novo
-            Dependente</button>
+            class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white bg-green-600 hover:bg-green-500"
+            (click)="addDependent()"
+            >Novo Dependente
+        </button>
     </div>
 
     <ng-container formArrayName="dependentsList">

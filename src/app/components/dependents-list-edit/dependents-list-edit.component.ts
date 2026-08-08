@@ -9,10 +9,15 @@ import { FormArray, FormGroup } from '@angular/forms';
 export class DependentsListEditComponent {
   @Input({ required: true}) userForm!: FormGroup;
   
-  @Output('onRemoveDependent') onRemoveDependentEmitt = new EventEmitter<number>();
+  @Output('onAddDependent') onAddDependentEmitt = new EventEmitter<void>(); // Emitindo o evento para adicionar um novo dependente
+  @Output('onRemoveDependent') onRemoveDependentEmitt = new EventEmitter<number>(); // Emitindo o evento para remover um dependente com base no índice fornecido
 
   get dependentsList(): FormArray {
     return this.userForm.get('dependentsList') as FormArray;
+  }
+
+  addDependent() {
+    this.onAddDependentEmitt.emit(); // Emitindo o evento para adicionar um novo dependente
   }
 
   removeDependent(dependentIndex: number) {

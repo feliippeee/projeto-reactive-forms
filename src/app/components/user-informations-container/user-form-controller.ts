@@ -9,6 +9,7 @@ import { preparePhoneList } from "../../utils/prepare-phone-list";
 import { PhoneTypeEnum } from "../../enums/phone-type.enum";
 import { prepareAddressList } from "../../utils/prepare-address-list";
 import { requiredAddressValidator } from "../../utils/user-form-validators/required-address-validator";
+import { IDependent } from "../../interfaces/user/depedent.interface";
 
 export class UserFormController {
     userForm!: FormGroup; // Propriedade para armazenar o formulário do usuário
@@ -51,8 +52,28 @@ export class UserFormController {
         console.log(this.userForm); // Exibindo o valor do formulário do usuário no console
     }
 
+    addDependent() {
+        this.dependentsList.push(this.createDependentGroup()); // Adicionando um novo dependente ao formulário
+    }
+
     removeDependent(dependentIndex: number) {
         this.dependentsList.removeAt(dependentIndex); // Removendo o dependente do formulário com base no índice fornecido
+    }
+
+    private createDependentGroup(dependent: IDependent | null = null) {
+        if(!dependent) {
+            return this._fb.group({
+                name: ['', Validators.required],
+                age: ['', Validators.required],
+                document: ['', Validators.required],
+            }); // Criando um novo grupo de formulário para um dependente com campos vazios e validadores obrigatórios
+        }
+
+        return this._fb.group({
+            name: [dependent.name, Validators.required],
+            age: [dependent.age, Validators.required],
+            document: [dependent.document, Validators.required],
+        }); // Criando um novo grupo de formulário para um dependente com os valores fornecidos e validadores obrigatórios
     }
 
     private resetUserForm() {
@@ -72,11 +93,7 @@ export class UserFormController {
 
     private fulfillDependentsList(userDependentsList: DependentsList) {
         userDependentsList.forEach((dependent) => {
-            this.dependentsList.push(this._fb.group({
-                name: [dependent.name, Validators.required],
-                age: [dependent.age, Validators.required],
-                document: [dependent.document, Validators.required],
-            }));
+            this.dependentsList.push(this.createDependentGroup(dependent));
         })
     }
 
