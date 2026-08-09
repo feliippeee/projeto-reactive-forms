@@ -11,7 +11,12 @@
         *ngIf="isInEditMode">Cancelar
     </button>
     <button 
-        class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white bg-green-600 hover:bg-green-500"
+        class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white"
+        [ngClass]="{
+            'bg-green-200 cursor-not-allowed': !enableSaveButton,
+            'bg-green-600 hover:bg-green-500': enableSaveButton,
+        }"
+        [disabled]="!enableSaveButton"
         *ngIf="isInEditMode">Salvar
     </button>
 </div>

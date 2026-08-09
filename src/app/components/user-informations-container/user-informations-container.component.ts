@@ -1,8 +1,8 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
-import { take } from 'rxjs';
+import { distinctUntilChanged, take } from 'rxjs';
 import { CountriesList } from '../../types/countries-list';
 import { StatesService } from '../../services/states.service';
 import { StatesList } from '../../types/states-list';
@@ -25,10 +25,13 @@ export class UserInformationsContainerComponent extends UserFormController imple
   @Input({ required: true }) isInEditMode: boolean = false; // Input obrigatório para determinar se o modo de edição está ativo ou não
   @Input({ required: true }) userSelected: IUser = {} as IUser; // Input obrigatório para determinar se o modo de edição está ativo ou não
   
+  @Output('onFormStatusChange') onFormStatusChangeEmitt = new EventEmitter<boolean>(); 
   
   ngOnInit() {
-    this.getCountriesList();
+    this.onUserFormStatusChange(); // Chamando o método para monitorar as mudanças de status do formulário do usuário
+    this.getCountriesList(); 
   }
+  
 
   ngOnChanges(changes: SimpleChanges): void {
       this.currentTabIndex = 0; // resetando o índice da aba para a primeira aba (Geral) ao selecionar um novo usuário
@@ -46,6 +49,12 @@ export class UserInformationsContainerComponent extends UserFormController imple
     this.getStatesList(countryName);
   }
   
+  private onUserFormStatusChange() {
+    this.userForm.statusChanges
+      .pipe(distinctUntilChanged())
+      .subscribe(() => this.onFormStatusChangeEmitt.emit(this.userForm.valid)); // Monitorando as mudanças de status do formulário do usuário e emitindo um evento com o estado de validade do formulário
+  }
+
   private getStatesList(country: string) {
     this._statesService.getStates(country).pipe(take(1)).subscribe((statesList: StatesList ) => {
       this.statesList = statesList;

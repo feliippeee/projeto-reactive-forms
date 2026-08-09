@@ -15,6 +15,7 @@ import { IUser } from './interfaces/user/user.interface';
 
 export class AppComponent implements OnInit {
 isInEditMode: boolean = false;
+enableSaveButton: boolean = false;
 
   userSelectedIndex: number | undefined;
   userSelected: IUser = {} as IUser; // criando um clone do usuário selecionado
@@ -43,6 +44,7 @@ isInEditMode: boolean = false;
 
     this._usersService.getUsers().pipe(take(1)).subscribe((usersListResponse) => this.usersList = usersListResponse);
   }
+  
   onUserSelected(userIndex: number) {
     const userFound = this.usersList[userIndex];
 
@@ -60,4 +62,8 @@ isInEditMode: boolean = false;
   onEditButton() {
     this.isInEditMode = true;
   }
+
+  onFormStatusChange(formStatus: boolean) {
+    setTimeout(() => this.enableSaveButton = formStatus, 0); // Atualizando o estado do botão de salvar com base na validade do formulário
+  }// nesse caso, o setTimeout é usado para garantir que a atualização do estado do botão de salvar ocorra após a conclusão do ciclo de detecção de mudanças do Angular, evitando possíveis problemas de sincronização.
 }
