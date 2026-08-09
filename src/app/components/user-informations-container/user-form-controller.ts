@@ -26,6 +26,10 @@ export class UserFormController {
         return this.userForm.get('generalInformations') as FormGroup; // Retornando o formulário de informações gerais do usuário
     }
 
+    get contactInformations(): FormGroup {
+        return this.userForm.get('contactInformations') as FormGroup; // Retornando o formulário de informações de contato do usuário
+    }
+
     get phoneList(): FormArray {
         return this.userForm.get('contactInformations.phoneList') as FormArray;
     }
@@ -38,6 +42,18 @@ export class UserFormController {
         return this.userForm.get('dependentsList') as FormArray;
     }
 
+    get generalInformationsValid(): boolean {
+        return this.generalInformations.valid; // Retornando se o formulário de informações gerais do usuário é válido
+    }
+
+    get contactInformationsValid(): boolean {
+        return this.contactInformations.valid; // Retornando se o formulário de informações de contato do usuário é válido
+    }
+
+    get dependentsListValid(): boolean {
+        return this.dependentsList.valid; // Retornando se o formulário de informações de dependentes do usuário é válido
+    }
+
     fulfillUserForm(user: IUser) {
         this.resetUserForm(); // Resetando o formulário do usuário antes de preenchê-lo com novos dados
 
@@ -48,6 +64,9 @@ export class UserFormController {
         this.fulfillAddressList(user.addressList);
 
         this.fulfillDependentsList(user.dependentsList);
+
+        this.userForm.markAllAsTouched(); // Marcando todos os campos do formulário como "tocados" para exibir mensagens de validação, se houver
+        this.userForm.updateValueAndValidity(); // Atualizando o estado de validade do formulário após preenchê-lo com novos dados
 
         console.log(this.userForm); // Exibindo o valor do formulário do usuário no console
     }

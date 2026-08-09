@@ -7,6 +7,7 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/core";
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/cor
         MatInputModule,
         MatAutocompleteModule,
         MatRadioModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatIconModule
     ],
     exports: [
         MatCardModule,
@@ -25,7 +27,8 @@ import { MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/cor
         MatInputModule,
         MatAutocompleteModule,
         MatRadioModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatIconModule
     ],
      providers: [
          provideNativeDateAdapter(),// adicionado provider para o MatDatepickerModule funcionar corretamente na versão 17 do angular
