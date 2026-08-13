@@ -48,6 +48,10 @@ export class UserInformationsContainerComponent extends UserFormController imple
   onCountrySelected(countryName: string) {
     this.getStatesList(countryName);
   }
+
+  mostrarForm() {
+    console.log(this.userForm);
+  }
   
   private onUserFormStatusChange() {
     this.userForm.statusChanges

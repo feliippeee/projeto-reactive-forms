@@ -73,10 +73,12 @@ export class UserFormController {
 
     addDependent() {
         this.dependentsList.push(this.createDependentGroup()); // Adicionando um novo dependente ao formulário
+        this.dependentsList.markAsDirty(); // Marcando o formulário de dependentes como "sujo" para indicar que houve alterações
     }
 
     removeDependent(dependentIndex: number) {
         this.dependentsList.removeAt(dependentIndex); // Removendo o dependente do formulário com base no índice fornecido
+        this.dependentsList.markAsDirty(); // Marcando o formulário de dependentes como "sujo" para indicar que houve alterações
     }
 
     private createDependentGroup(dependent: IDependent | null = null) {
