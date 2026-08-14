@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CountriesService } from './services/countries.service';
-import { StatesService } from './services/states.service';
-import { CitiesService } from './services/cities.service';
 import { UsersService } from './services/users.service';
 import { UsersListResponse } from './types/users-list-response';
 import { take } from 'rxjs';
 import { IUser } from './interfaces/user/user.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +15,7 @@ import { IUser } from './interfaces/user/user.interface';
 export class AppComponent implements OnInit {
 isInEditMode: boolean = false;
 enableSaveButton: boolean = false;
+userFormUpdated: boolean = false;
 
   userSelectedIndex: number | undefined;
   userSelected: IUser = {} as IUser; // criando um clone do usuário selecionado
@@ -23,25 +23,11 @@ enableSaveButton: boolean = false;
   usersList: UsersListResponse = [];
 
   constructor(
-    private readonly _countriesService: CountriesService,
-    private readonly _statesService: StatesService,
-    private readonly _citiesService: CitiesService,
     private readonly _usersService: UsersService,
+    private readonly _matDialog: MatDialog, 
   ) { }
 
   ngOnInit() {
-    // this._countriesService.getCountries().subscribe((countriesResponse: any) => {
-    // console.log('countriesResponse', countriesResponse);
-    //});
-
-    //this._stateService.getStates('Brazil').subscribe((stateResponse) => {
-    //console.log('stateResponse', stateResponse);
-    //});
-
-    //this._citiesService.getCities('Brazil', 'São Paulo').subscribe((citiesResponse) => {
-    //console.log('citiesResponse', citiesResponse);
-    //});
-
     this._usersService.getUsers().pipe(take(1)).subscribe((usersListResponse) => this.usersList = usersListResponse);
   }
   
@@ -56,7 +42,22 @@ enableSaveButton: boolean = false;
   }
 
   onCancelButton() {
-    this.isInEditMode = false;
+    if(this.userFormUpdated) {
+      const dialogRef =this._matDialog.open(ConfirmationDialogComponent, {
+        data: {
+          title: 'O Formulário foi alterado',
+          message: 'Deseja realmente cancelar as alterações feitas no formulário?'
+        }
+      });
+
+      dialogRef.afterClosed().subscribe((value: boolean) => { 
+        if(!value) return;
+        this.isInEditMode = false;
+        this.userFormUpdated = false;
+      }); // O método afterClosed() retorna um Observable que emite o valor passado para o método close() do diálogo quando ele é fechado. Esse valor é capturado no parâmetro value da função de callback.
+    } else {
+      this.isInEditMode = false;
+    }
   }
   
   onEditButton() {
@@ -66,4 +67,7 @@ enableSaveButton: boolean = false;
   onFormStatusChange(formStatus: boolean) {
     setTimeout(() => this.enableSaveButton = formStatus, 0); // Atualizando o estado do botão de salvar com base na validade do formulário
   }// nesse caso, o setTimeout é usado para garantir que a atualização do estado do botão de salvar ocorra após a conclusão do ciclo de detecção de mudanças do Angular, evitando possíveis problemas de sincronização.
+  onUserFormFirstChange() {
+    this.userFormUpdated = true; // Atualizando o estado para indicar que o formulário do usuário foi atualizado
+  }
 }

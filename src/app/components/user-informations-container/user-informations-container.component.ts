@@ -27,6 +27,8 @@ export class UserInformationsContainerComponent extends UserFormController imple
   
   @Output('onFormStatusChange') onFormStatusChangeEmitt = new EventEmitter<boolean>(); 
   
+  @Output('onUserFormFirstChange') onUserFormFirstChangeEmitt = new EventEmitter<void>(); 
+  
   ngOnInit() {
     this.onUserFormStatusChange(); // Chamando o método para monitorar as mudanças de status do formulário do usuário
     this.getCountriesList(); 
@@ -41,6 +43,8 @@ export class UserInformationsContainerComponent extends UserFormController imple
       if (HAS_USER_SELECTED) {
         this.fulfillUserForm(this.userSelected); // Preenchendo o formulário com as informações do usuário selecionado
         
+        this.onUserFormFirstChange(); // Chamando o método para monitorar a primeira mudança no formulário do usuário
+
         this.getStatesList(this.userSelected.country);
       }
   }
@@ -53,6 +57,12 @@ export class UserInformationsContainerComponent extends UserFormController imple
     console.log(this.userForm);
   }
   
+   private onUserFormFirstChange() {
+    this.userForm.valueChanges
+    .pipe(take(1))
+    .subscribe(() => this.onUserFormFirstChangeEmitt.emit()); // Monitorando a primeira mudança no formulário do usuário e registrando os valores no console
+  }
+
   private onUserFormStatusChange() {
     this.userForm.statusChanges
       .pipe(distinctUntilChanged())

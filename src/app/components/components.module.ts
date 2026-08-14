@@ -18,6 +18,7 @@ import { PhoneListEditComponent } from './contact-informations-edit/components/p
 import { AddressListEditComponent } from './contact-informations-edit/components/address-list-edit/address-list-edit.component';
 import { DependentsListEditComponent } from './dependents-list-edit/dependents-list-edit.component';
 import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
     ContactInformationsEditComponent,
     PhoneListEditComponent,
     AddressListEditComponent,
-    DependentsListEditComponent
+    DependentsListEditComponent,
+    ConfirmationDialogComponent
   ],
     imports: [
         CommonModule, // Importa o CommonModule para usar diretivas comuns do Angular, usar o *ngFor, *ngIf, etc no user-list.html .
@@ -49,7 +51,8 @@ import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
         ContactInformationsComponent,
         DependentsListComponent,
         ButtonsContainerComponent,
-        UserInformationsContainerComponent
+        UserInformationsContainerComponent,
+        ConfirmationDialogComponent
     ],
     providers: [
         provideNgxMask()
