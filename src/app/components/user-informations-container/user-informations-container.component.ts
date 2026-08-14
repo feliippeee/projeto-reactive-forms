@@ -2,7 +2,7 @@ import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, Simp
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
-import { distinctUntilChanged, take } from 'rxjs';
+import { distinctUntilChanged, Subscription, take } from 'rxjs';
 import { CountriesList } from '../../types/countries-list';
 import { StatesService } from '../../services/states.service';
 import { StatesList } from '../../types/states-list';
@@ -12,12 +12,13 @@ import { StatesList } from '../../types/states-list';
   templateUrl: './user-informations-container.component.html',
   styleUrl: './user-informations-container.component.scss'
 })
-export class UserInformationsContainerComponent extends UserFormController implements OnInit, OnChanges {
- // Implementando a interface OnChanges para detectar mudanças nas propriedades de entrada (Input) e extendendo a classe UserFormController para herdar suas funcionalidades
+export class UserInformationsContainerComponent extends UserFormController implements OnInit, OnChanges {// Implementando a interface OnChanges para detectar mudanças nas propriedades de entrada (Input) e extendendo a classe UserFormController para herdar suas funcionalidades
   currentTabIndex = 0; // resetando o índice da aba para a primeira aba (Geral) ao selecionar um novo usuário
 
   countriesList: CountriesList = [];
   statesList: StatesList = [];
+
+  userFormValueChangesSubs!: Subscription; // Subscrição para monitorar as mudanças de valor do formulário do usuário
 
   private readonly _countriesService = inject(CountriesService) //
   private readonly _statesService = inject(StatesService);
@@ -34,13 +35,13 @@ export class UserInformationsContainerComponent extends UserFormController imple
     this.getCountriesList(); 
   }
   
-
   ngOnChanges(changes: SimpleChanges): void {
       this.currentTabIndex = 0; // resetando o índice da aba para a primeira aba (Geral) ao selecionar um novo usuário
 
       const HAS_USER_SELECTED = changes['userSelected'] && Object.keys(changes['userSelected'].currentValue).length > 0; // Verificando se há um usuário selecionado
 
       if (HAS_USER_SELECTED) {
+        if(this.userFormValueChangesSubs) this.userFormValueChangesSubs.unsubscribe(); // Cancelando a subscrição anterior para evitar múltiplas subscrições
         this.fulfillUserForm(this.userSelected); // Preenchendo o formulário com as informações do usuário selecionado
         
         this.onUserFormFirstChange(); // Chamando o método para monitorar a primeira mudança no formulário do usuário
@@ -58,7 +59,7 @@ export class UserInformationsContainerComponent extends UserFormController imple
   }
   
    private onUserFormFirstChange() {
-    this.userForm.valueChanges
+    this.userFormValueChangesSubs = this.userForm.valueChanges
     .pipe(take(1))
     .subscribe(() => this.onUserFormFirstChangeEmitt.emit()); // Monitorando a primeira mudança no formulário do usuário e registrando os valores no console
   }
