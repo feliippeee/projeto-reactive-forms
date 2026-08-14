@@ -5,6 +5,7 @@ import { take } from 'rxjs';
 import { IUser } from './interfaces/user/user.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
 
 @Component({
   selector: 'app-root',
@@ -43,21 +44,37 @@ userFormUpdated: boolean = false;
 
   onCancelButton() {
     if(this.userFormUpdated) {
-      const dialogRef =this._matDialog.open(ConfirmationDialogComponent, {
-        data: {
+      this.openConfirmationDialog({
           title: 'O Formulário foi alterado',
           message: 'Deseja realmente cancelar as alterações feitas no formulário?'
-        }
-      });
+        }, 
+        (value: boolean) => {
+          if(!value) return;
 
-      dialogRef.afterClosed().subscribe((value: boolean) => { 
-        if(!value) return;
-        this.isInEditMode = false;
-        this.userFormUpdated = false;
-      }); // O método afterClosed() retorna um Observable que emite o valor passado para o método close() do diálogo quando ele é fechado. Esse valor é capturado no parâmetro value da função de callback.
+          this.isInEditMode = false;
+          this.userFormUpdated = false;
+        } 
+      );
     } else {
       this.isInEditMode = false;
     }
+  }
+
+  onSaveButton() {
+   this.openConfirmationDialog(
+    {
+      title: 'Confirmar alteração de dados',
+      message: 'Deseja realmente salvar os valores alterados no formulário?'
+    }, 
+    (value: boolean) => {
+      if(!value) return;
+
+      this.saveUserInfos();
+
+      this.isInEditMode = false;
+      this.userFormUpdated = false;
+    }
+   );
   }
   
   onEditButton() {
@@ -70,4 +87,16 @@ userFormUpdated: boolean = false;
   onUserFormFirstChange() {
     this.userFormUpdated = true; // Atualizando o estado para indicar que o formulário do usuário foi atualizado
   }
+
+  private openConfirmationDialog(data: IDialogConfirmationData, callback: (value: boolean) => void) {
+     const dialogRef =this._matDialog.open(ConfirmationDialogComponent, {
+        data,
+      });
+
+      dialogRef.afterClosed().subscribe(callback);
+  }
+  
+  private saveUserInfos() {
+    console.log('Valores Alterados');
+  }   
 }
