@@ -59,6 +59,7 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
   }
 
   private filterCountriesList(searchTerm: string) {
+    if(!searchTerm) return; // Se o termo 'lista' de busca estiver vazio, não filtrar
     this.countriesListFiltered = this.countriesList.filter((country) => country.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase().trim()));
   }
 
@@ -67,6 +68,7 @@ export class GeneralInformationsEditComponent implements OnInit, OnChanges {
   }
 
   private filterStatesList(searchTerm: string) {
+    if(!searchTerm) return; // Se o termo 'lista' de busca estiver vazio, não filtrar
     this.statesListFiltered = this.statesList.filter(
       (state) => state.name.toLowerCase().includes(searchTerm.toLowerCase().trim())
   );
