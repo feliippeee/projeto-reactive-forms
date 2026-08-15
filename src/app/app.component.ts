@@ -6,6 +6,7 @@ import { IUser } from './interfaces/user/user.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
+import { UpdateUserService } from './services/update-user.service';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ userFormUpdated: boolean = false;
 
   constructor(
     private readonly _usersService: UsersService,
+    private readonly _updateUserService: UpdateUserService,
     private readonly _matDialog: MatDialog, 
   ) { }
 
@@ -97,6 +99,15 @@ userFormUpdated: boolean = false;
   }
   
   private saveUserInfos() {
-    console.log('Valores Alterados');
+    const newUser: IUser = this.convertUserFormToUser(); // Convertendo os dados do formulário em um objeto IUser para ser enviado ao serviço de atualização de usuário
+    this._updateUserService.updateUser(newUser).subscribe((newUserResponse: IUser) => { // Chamando o serviço para atualizar os dados do usuário e recebendo a resposta com os novos dados do usuário
+      if(this.userSelectedIndex === undefined) return; // Verificando se o índice do usuário selecionado está definido antes de atualizar a lista de usuários
+
+      this.usersList[this.userSelectedIndex] = newUserResponse; // Atualizando a lista de usuários com os novos dados do usuário
+    });
   }   
+
+  private convertUserFormToUser(): IUser {
+    return {}  as IUser; // Implementar a lógica para converter os dados do formulário em um objeto IUser
+  }
 }
