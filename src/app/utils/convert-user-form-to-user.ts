@@ -1,6 +1,7 @@
-import { IUserForm, IUserFormAddress, IUserFormGeneralInformations, IUserFormPhone } from "../interfaces/user-form.interface";
+import { IUserForm, IUserFormAddress, IUserFormDependent, IUserFormGeneralInformations, IUserFormPhone } from "../interfaces/user-form.interface";
 import { IUser } from "../interfaces/user/user.interface";
 import { AddressList } from "../types/address-list";
+import { DependentsList } from "../types/dependents-list";
 import { PhoneList } from "../types/phone-list";
 
 export const convertUserFormToUser = (userForm: IUserForm): IUser => {
@@ -9,7 +10,8 @@ export const convertUserFormToUser = (userForm: IUserForm): IUser => {
     newUser = { ...convertGeneralInformations(userForm.generalInformations) };
     newUser.phoneList = [ ...convertPhoneList(userForm.contactInformations.phoneList) ];
     newUser.addressList = [ ...convertAddressList(userForm.contactInformations.addressList) ];
-
+    newUser.dependentsList = [ ...convertDependentsList(userForm.dependentsList) ];
+    
     return newUser as IUser;
 };
 
@@ -46,5 +48,13 @@ const convertAddressList = (addressList: IUserFormAddress[]): AddressList => {
         city: address.city,
     }));
     return newUserAddressList;
-}
-             
+};
+     
+const convertDependentsList = (dependentsList: IUserFormDependent[]): DependentsList => {
+    const newUserDependentsList: DependentsList = dependentsList.map((dependent) => ({
+        name: dependent.name,
+        age: Number(dependent.age),
+        document: Number(dependent.document),
+    }));
+    return newUserDependentsList;
+};
