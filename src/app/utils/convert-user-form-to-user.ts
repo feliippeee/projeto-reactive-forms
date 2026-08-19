@@ -1,5 +1,6 @@
-import { IUserForm, IUserFormGeneralInformations, IUserFormPhone } from "../interfaces/user-form.interface";
+import { IUserForm, IUserFormAddress, IUserFormGeneralInformations, IUserFormPhone } from "../interfaces/user-form.interface";
 import { IUser } from "../interfaces/user/user.interface";
+import { AddressList } from "../types/address-list";
 import { PhoneList } from "../types/phone-list";
 
 export const convertUserFormToUser = (userForm: IUserForm): IUser => {
@@ -7,6 +8,7 @@ export const convertUserFormToUser = (userForm: IUserForm): IUser => {
 
     newUser = { ...convertGeneralInformations(userForm.generalInformations) };
     newUser.phoneList = [ ...convertPhoneList(userForm.contactInformations.phoneList) ];
+    newUser.addressList = [ ...convertAddressList(userForm.contactInformations.addressList) ];
 
     return newUser as IUser;
 };
@@ -32,5 +34,17 @@ const convertGeneralInformations = (generalInformations: IUserFormGeneralInforma
             number: phone.number.substring(4), // Implementar a lógica para extrair o número de telefone do formulário
         }));
         return newUserPhoneList;
-    };
+};
+
+const convertAddressList = (addressList: IUserFormAddress[]): AddressList => {
+    const newUserAddressList: AddressList = addressList.map((address) => ({
+        type: address.type,
+        street: address.street,
+        complement: address.complement,
+        country: address.country,
+        state: address.state,
+        city: address.city,
+    }));
+    return newUserAddressList;
+}
              
