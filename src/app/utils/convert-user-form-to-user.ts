@@ -3,6 +3,7 @@ import { IUser } from "../interfaces/user/user.interface";
 import { AddressList } from "../types/address-list";
 import { DependentsList } from "../types/dependents-list";
 import { PhoneList } from "../types/phone-list";
+import { convertDateObjToPtBrDate } from "./convert-date-obj-to-pt-br-date";
 
 export const convertUserFormToUser = (userForm: IUserForm): IUser => {
     let newUser: Partial<IUser> = {} as IUser;
@@ -23,7 +24,7 @@ const convertGeneralInformations = (generalInformations: IUserFormGeneralInforma
         state: generalInformations.state,
         maritalStatus: generalInformations.maritalStatus,
         monthlyIncome: generalInformations.monthlyIncome,
-        birthDate: '' // Implementar a lógica para converter a data de nascimento do formato do formulário para o formato do objeto IUser,
+        birthDate: convertDateObjToPtBrDate(generalInformations.birthDate), // Convertendo a data de nascimento do objeto Date para o formato de data brasileiro (dd/mm/yyyy)
     };
 
 };
