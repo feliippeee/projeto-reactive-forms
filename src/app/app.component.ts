@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
 import { UpdateUserService } from './services/update-user.service';
+import { UserFormRawValueService } from './services/user-form-raw-value.service';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ userFormUpdated: boolean = false;
   constructor(
     private readonly _usersService: UsersService,
     private readonly _updateUserService: UpdateUserService,
+    private readonly _userFormRawValueService: UserFormRawValueService,
     private readonly _matDialog: MatDialog, 
   ) { }
 
@@ -108,6 +110,7 @@ userFormUpdated: boolean = false;
   }   
 
   private convertUserFormToUser(): IUser {
+    console.log('_userFormRawValueService', this._userFormRawValueService.userFormRawValue); // Exibindo o valor bruto do formulário do usuário no console
     return {}  as IUser; // Implementar a lógica para converter os dados do formulário em um objeto IUser
   }
 }

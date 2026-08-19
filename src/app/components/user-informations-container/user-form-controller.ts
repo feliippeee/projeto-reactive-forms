@@ -10,16 +10,19 @@ import { PhoneTypeEnum } from "../../enums/phone-type.enum";
 import { prepareAddressList } from "../../utils/prepare-address-list";
 import { requiredAddressValidator } from "../../utils/user-form-validators/required-address-validator";
 import { IDependent } from "../../interfaces/user/depedent.interface";
+import { UserFormRawValueService } from "../../services/user-form-raw-value.service";
 
 export class UserFormController {
     userForm!: FormGroup; // Propriedade para armazenar o formulário do usuário
 
     private emailPattern= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    private _fb = inject(FormBuilder); // Injetando o FormBuilder para criar o formulário do usuário
-
+    private readonly _fb = inject(FormBuilder); // Injetando o FormBuilder para criar o formulário do usuário
+    private readonly _userFormRawValueService = inject(UserFormRawValueService); // Injetando o serviço para armazenar o valor bruto do formulário do usuário
+   
     constructor() {
         this.createUserForm(); // Chamando o método para criar o formulário do usuário ao instanciar a classe
+        this.watchUserFormValueChangesAndUpdateService();
     }
 
     get generalInformations(): FormGroup {
@@ -172,5 +175,10 @@ export class UserFormController {
             }),
             dependentsList: this._fb.array([]),
         }); // Criando o formulário do usuário com o FormBuilder
+    }
+
+    private watchUserFormValueChangesAndUpdateService() {
+        this.userForm.valueChanges.subscribe(() => 
+            this._userFormRawValueService.userFormRawValue = this.userForm.getRawValue()); // Monitorando as mudanças no formulário do usuário e atualizando o valor bruto do formulário no serviço
     }
 }
