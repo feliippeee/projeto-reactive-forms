@@ -8,6 +8,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
 import { UpdateUserService } from './services/update-user.service';
 import { UserFormRawValueService } from './services/user-form-raw-value.service';
+import { convertUserFormToUser } from './utils/convert-user-form-to-user';
 
 @Component({
   selector: 'app-root',
@@ -111,6 +112,7 @@ userFormUpdated: boolean = false;
 
   private convertUserFormToUser(): IUser {
     console.log('_userFormRawValueService', this._userFormRawValueService.userFormRawValue); // Exibindo o valor bruto do formulário do usuário no console
+    console.log('convertUserFormToUser', convertUserFormToUser(this._userFormRawValueService.userFormRawValue)); // Exibindo o resultado da conversão do valor bruto do formulário em um objeto IUser no console
     return {}  as IUser; // Implementar a lógica para converter os dados do formulário em um objeto IUser
   }
 }
