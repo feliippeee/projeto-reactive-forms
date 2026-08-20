@@ -102,17 +102,12 @@ userFormUpdated: boolean = false;
   }
   
   private saveUserInfos() {
-    const newUser: IUser = this.convertUserFormToUser(); // Convertendo os dados do formulário em um objeto IUser para ser enviado ao serviço de atualização de usuário
+    const newUser: IUser = convertUserFormToUser(this._userFormRawValueService.userFormRawValue); // Convertendo os dados do formulário em um objeto IUser para ser enviado ao serviço de atualização de usuário
     this._updateUserService.updateUser(newUser).subscribe((newUserResponse: IUser) => { // Chamando o serviço para atualizar os dados do usuário e recebendo a resposta com os novos dados do usuário
       if(this.userSelectedIndex === undefined) return; // Verificando se o índice do usuário selecionado está definido antes de atualizar a lista de usuários
 
       this.usersList[this.userSelectedIndex] = newUserResponse; // Atualizando a lista de usuários com os novos dados do usuário
+      this.userSelected = structuredClone(newUserResponse); // Atualizando o usuário selecionado com os novos dados do usuário
     });
   }   
-
-  private convertUserFormToUser(): IUser {
-    console.log('_userFormRawValueService', this._userFormRawValueService.userFormRawValue); // Exibindo o valor bruto do formulário do usuário no console
-    console.log('convertUserFormToUser', convertUserFormToUser(this._userFormRawValueService.userFormRawValue)); // Exibindo o resultado da conversão do valor bruto do formulário em um objeto IUser no console
-    return {}  as IUser; // Implementar a lógica para converter os dados do formulário em um objeto IUser
-  }
 }

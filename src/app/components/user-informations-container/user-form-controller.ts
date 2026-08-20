@@ -70,8 +70,6 @@ export class UserFormController {
 
         this.userForm.markAllAsTouched(); // Marcando todos os campos do formulário como "tocados" para exibir mensagens de validação, se houver
         this.userForm.updateValueAndValidity(); // Atualizando o estado de validade do formulário após preenchê-lo com novos dados
-
-        console.log(this.userForm); // Exibindo o valor do formulário do usuário no console
     }
 
     addDependent() {
@@ -135,7 +133,6 @@ export class UserFormController {
                 validators: requiredAddressValidator
             }));
         });
-        console.log('addressList', this.addressList);
     }
 
     private fulfillPhoneList(UserPhoneList: PhoneList) {
