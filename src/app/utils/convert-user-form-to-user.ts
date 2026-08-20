@@ -4,6 +4,7 @@ import { AddressList } from "../types/address-list";
 import { DependentsList } from "../types/dependents-list";
 import { PhoneList } from "../types/phone-list";
 import { convertDateObjToPtBrDate } from "./convert-date-obj-to-pt-br-date";
+import { formatNumber } from "./format-number";
 
 export const convertUserFormToUser = (userForm: IUserForm): IUser => {
     let newUser: Partial<IUser> = {} as IUser;
@@ -32,9 +33,9 @@ const convertGeneralInformations = (generalInformations: IUserFormGeneralInforma
  const convertPhoneList = (phoneList: IUserFormPhone[]): PhoneList => {
         const newUserPhoneList: PhoneList = phoneList.map((phone) => ({
             type: phone.type,
-            internationalCode: phone.number.substring(0, 2), // Implementar a lógica para extrair o código internacional do número de telefone do formulário
+            internationalCode: '+' + phone.number.substring(0, 2), // Implementar a lógica para extrair o código internacional do número de telefone do formulário
             areaCode: phone.number.substring(2, 4), // Implementar a lógica para extrair o código de área do número de telefone do formulário
-            number: phone.number.substring(4), // Implementar a lógica para extrair o número de telefone do formulário
+            number: formatNumber(phone.number.substring(4)), // Implementar a lógica para extrair o número de telefone do formulário
         }));
         return newUserPhoneList;
 };

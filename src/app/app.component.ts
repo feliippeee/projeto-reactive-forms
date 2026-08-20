@@ -102,8 +102,11 @@ userFormUpdated: boolean = false;
   }
   
   private saveUserInfos() {
+    console.log('Antes', structuredClone(this.userSelected));
     const newUser: IUser = convertUserFormToUser(this._userFormRawValueService.userFormRawValue); // Convertendo os dados do formulário em um objeto IUser para ser enviado ao serviço de atualização de usuário
+    console.log('Depois', structuredClone(newUser));
     this._updateUserService.updateUser(newUser).subscribe((newUserResponse: IUser) => { // Chamando o serviço para atualizar os dados do usuário e recebendo a resposta com os novos dados do usuário
+
       if(this.userSelectedIndex === undefined) return; // Verificando se o índice do usuário selecionado está definido antes de atualizar a lista de usuários
 
       this.usersList[this.userSelectedIndex] = newUserResponse; // Atualizando a lista de usuários com os novos dados do usuário
