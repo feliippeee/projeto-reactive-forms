@@ -31,12 +31,13 @@ const convertGeneralInformations = (generalInformations: IUserFormGeneralInforma
 };
 
  const convertPhoneList = (phoneList: IUserFormPhone[]): PhoneList => {
-        const newUserPhoneList: PhoneList = phoneList.map((phone) => ({
+        const newUserPhoneList: PhoneList = phoneList
+        .map((phone) => ({
             type: phone.type,
             internationalCode: '+' + phone.number.substring(0, 2), // Implementar a lógica para extrair o código internacional do número de telefone do formulário
             areaCode: phone.number.substring(2, 4), // Implementar a lógica para extrair o código de área do número de telefone do formulário
             number: formatNumber(phone.number.substring(4)), // Implementar a lógica para extrair o número de telefone do formulário
-        }));
+        })).filter((phone) => phone.areaCode !== '');
         return newUserPhoneList;
 };
 
