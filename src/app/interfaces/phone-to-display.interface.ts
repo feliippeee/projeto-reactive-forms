@@ -3,4 +3,4 @@ export interface IPhoneToDisplay {
     typeDescription: string;
     phoneNumber: string;
 
-}
+};

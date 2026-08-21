@@ -3,4 +3,4 @@ export interface IPhone {
     areaCode: string;
     internationalCode: string;
     number: string;
-}
+};

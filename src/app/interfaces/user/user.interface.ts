@@ -14,4 +14,4 @@ export interface IUser {
     addressList: AddressList;
     dependentsList: DependentsList;
 
-}
+};
