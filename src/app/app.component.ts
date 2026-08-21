@@ -83,6 +83,7 @@ userFormUpdated: boolean = false;
   }
   
   onEditButton() {
+    this.userSelected = structuredClone(this.userSelected); // criando um clone do usuário selecionado para evitar alterações diretas no objeto original
     this.isInEditMode = true;
   }
 
